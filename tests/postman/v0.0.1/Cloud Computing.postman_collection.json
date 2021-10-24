@@ -1,0 +1,154 @@
+{
+	"info": {
+		"_postman_id": "31079a5f-5492-4bfe-b622-df0d7d35e433",
+		"name": "Cloud Computing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/keyValue",
+			"item": [
+				{
+					"name": "POST an entry",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": \"Just an ordenary data\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/keyValue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"keyValue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all entries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/keyValue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"keyValue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE all entries",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/keyValue",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"keyValue"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/keyValue/<key>",
+			"item": [
+				{
+					"name": "PUT entry by key",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": \"update the data\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/keyValue/SomeSortOfKey",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"keyValue",
+								"SomeSortOfKey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET entry by key",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/keyValue/SomeSortOfKey",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"keyValue",
+								"SomeSortOfKey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE entry by key",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/keyValue/SomeSortOfKey",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"keyValue",
+								"SomeSortOfKey"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
