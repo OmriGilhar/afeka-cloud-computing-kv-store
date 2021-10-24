@@ -1,6 +1,6 @@
 import sys
 import uuid
-from typing import Any, Union
+from typing import Any
 from flask import Flask, request, jsonify, make_response, Response
 
 try:
