@@ -1,74 +1,18 @@
 import sys
 import uuid
-from typing import Any
 from flask import Flask, request, jsonify, make_response, Response
 
 try:
     from entities.key_value_pair_boundary import KeyValuePairBoundary
     from exceptions.key_value_exceptions import KeyValueException
+    from controllers.key_value_controller import KeyValueController
 except ModuleNotFoundError:
     from src.entities.key_value_pair_boundary import KeyValuePairBoundary
     from src.exceptions.key_value_exceptions import KeyValueException
+    from src.controllers.key_value_controller import KeyValueController
 
 app = Flask(__name__)
-
-
-def _get_entry_by_key(key: str) -> Response:
-    """
-    TODO: Add documentation
-
-    :param key:
-    :return:
-    """
-    # TODO: Implement getting value by Key from AWS
-    return jsonify({})
-
-
-def _update_entry_by_key(key: str, value: Any) -> Response:
-    """
-    TODO: Add documentation
-
-    :param key:
-    :param value:
-    :return:
-    """
-    # TODO: Implement updating a value by Key from AWS
-    return jsonify({})
-
-
-def _delete_entry_by_key(key: str) -> Response:
-    """
-    TODO: Add documentation
-    :param key:
-    :return:
-    """
-    # TODO: Implement deleting an entry by Key from AWS
-    return jsonify({})
-
-
-def _store_entry(key: str, value: Any) -> Response:
-    kv_boundary = KeyValuePairBoundary(key, value)
-
-    # TODO: Implement storing on AWS
-
-    return jsonify(kv_boundary.__dict__)
-
-
-def _get_all_entries() -> Response:
-    page = request.args.get('page', 1, type=int)
-    size = request.args.get('size', 1, type=int)
-
-    # TODO: Call AWS to get all entries
-    return jsonify([])
-
-
-def _delete_all_entries() -> Response:
-    """
-    TODO: Add documentation
-    :return:
-    """
-    # TODO: Call AWS to delete all entries
-    return jsonify([])
+kv_controller = KeyValueController()
 
 
 @app.route(f"/keyValue", methods=['POST', 'GET', 'DELETE'])
@@ -79,11 +23,11 @@ def keys() -> Response:
     """
     try:
         if request.method == 'POST':
-            return _store_entry(str(uuid.uuid4()), request.json)
+            return kv_controller.store_entry(str(uuid.uuid4()), request.json)
         elif request.method == 'GET':
-            return _get_all_entries()
+            return kv_controller.get_all_entries()
         elif request.method == 'DELETE':
-            return _delete_all_entries()
+            return kv_controller.delete_all_entries()
     except KeyValueException as kve:
         if kve.error == KeyValueException.KEY_NOT_FOUND:
             return make_response(jsonify(KeyValueException.KEY_NOT_FOUND), 404)
@@ -98,11 +42,11 @@ def keys_manipulation(key: str) -> Response:
     """
     try:
         if request.method == 'GET':
-            return _get_entry_by_key(key)
+            return kv_controller.get_entry_by_key(key)
         elif request.method == 'PUT':
-            return _update_entry_by_key(key, request.get_json())
+            return kv_controller.update_entry_by_key(key, request.get_json())
         elif request.method == 'DELETE':
-            return _delete_entry_by_key(key)
+            return kv_controller.delete_entry_by_key(key)
     except KeyValueException as kve:
         if kve.error == KeyValueException.KEY_NOT_FOUND:
             return make_response(jsonify(KeyValueException.KEY_NOT_FOUND), 404)

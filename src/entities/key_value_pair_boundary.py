@@ -1,10 +1,7 @@
-from typing import Any
-
-
 class KeyValuePairBoundary:
-    def __init__(self, key: str = '', value: Any = None):
+    def __init__(self, key: str = '', value: any = None):
         self._key: str = key
-        self._value: Any = value
+        self._value: any = value
 
     @property
     def key(self) -> str:
@@ -15,11 +12,11 @@ class KeyValuePairBoundary:
         self._key = key
 
     @property
-    def value(self) -> Any:
+    def value(self) -> any:
         return self._value
 
     @value.setter
-    def value(self, value: Any) -> None:
+    def value(self, value: any) -> None:
         self._value = value
 
     def __str__(self) -> str:
