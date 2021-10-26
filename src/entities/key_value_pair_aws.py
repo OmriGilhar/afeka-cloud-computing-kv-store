@@ -22,6 +22,9 @@ class KeyValuePairAws(KeyValuePairBoundary):
             }
         )
 
+    def scan(self):
+        return self._storage.scan()['Items']
+
 
     def delete_all_entries(self) -> list[dict]:
         scan = self._storage.scan()
