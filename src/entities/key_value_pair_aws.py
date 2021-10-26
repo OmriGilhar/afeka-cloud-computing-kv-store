@@ -2,7 +2,6 @@ import boto3
 
 from src.entities.key_value_pair_boundary import KeyValuePairBoundary
 
-
 STORAGE_NAME = 'CloudTestTable'
 
 
@@ -18,7 +17,7 @@ class KeyValuePairAws(KeyValuePairBoundary):
         self._storage.put_item(
             Item={
                 'ID': entry.key,
-                'value': entry.value,
+                'content': entry.value,
             }
         )
 
@@ -49,3 +48,16 @@ class KeyValuePairAws(KeyValuePairBoundary):
                 'ID': key
             }
         )['Item']
+
+    def update_entry_by_key(self, key: str, value: any) -> dict:
+        return self._storage.update_item(
+            Key={
+                'ID': key
+            },
+
+            UpdateExpression="SET content = :g",
+            ExpressionAttributeValues={
+                ":g": value
+            },
+            ReturnValues="ALL_NEW"
+        )['Attributes']

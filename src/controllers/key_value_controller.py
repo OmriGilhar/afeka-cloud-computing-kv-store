@@ -19,7 +19,7 @@ class KeyValueController:
         """
         kv_boundary = KeyValuePairBoundary(key, value)
         self._interface.store(kv_boundary)
-        return jsonify(kv_boundary.__dict__)
+        return jsonify(self._interface.get_entry_by_key(key))
 
     def get_entry_by_key(self, key: str) -> Response:
         """
@@ -39,7 +39,11 @@ class KeyValueController:
         :return:
         """
         # TODO: Implement updating a value by Key from AWS
-        return jsonify({})
+        try:
+            self.get_entry_by_key(key)
+        except KeyError:
+            raise KeyValueException(KeyValueException.KEY_NOT_FOUND)
+        return jsonify(self._interface.update_entry_by_key(key, value))
 
     def delete_entry_by_key(self, key: str) -> Response:
         """
@@ -86,4 +90,3 @@ class KeyValueController:
             while len(return_list[list_index]) < size and len(response):
                 return_list[list_index].append(response.pop())
         return return_list
-
