@@ -28,7 +28,7 @@ def keys() -> Response:
             return kv_controller.get_all_entries()
         elif request.method == 'DELETE':
             return kv_controller.delete_all_entries()
-    except KeyValueException as kve:
+    except Exception as kve:
         if kve.error == KeyValueException.KEY_NOT_FOUND:
             return make_response(jsonify(KeyValueException.KEY_NOT_FOUND), 404)
 
@@ -47,7 +47,7 @@ def keys_manipulation(key: str) -> Response:
             return kv_controller.update_entry_by_key(key, request.get_json())
         elif request.method == 'DELETE':
             return kv_controller.delete_entry_by_key(key)
-    except KeyValueException as kve:
+    except Exception as kve:
         if kve.error == KeyValueException.KEY_NOT_FOUND:
             return make_response(jsonify(KeyValueException.KEY_NOT_FOUND), 404)
 
