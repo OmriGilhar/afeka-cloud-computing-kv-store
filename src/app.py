@@ -66,4 +66,4 @@ def _usage():
 if __name__ == '__main__':
     if len(sys.argv) < 1:
         _usage()
-    app.run(debug=True)
+    app.run(debug=True, threaded=True, port=5000)
