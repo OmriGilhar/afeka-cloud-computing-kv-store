@@ -22,6 +22,7 @@ class KeyValuePairAws(KeyValuePairBoundary):
             }
         )
 
+
     def delete_all_entries(self) -> list[dict]:
         scan = self._storage.scan()
         with self._storage.batch_writer() as batch:
@@ -32,3 +33,10 @@ class KeyValuePairAws(KeyValuePairBoundary):
                     }
                 )
         return scan['Items']
+
+    def get_entry_by_key(self, key: str) -> dict:
+        return self._storage.get_item(
+            Key={
+                'ID': key
+            }
+        )['Item']
