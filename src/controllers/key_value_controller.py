@@ -62,5 +62,4 @@ class KeyValueController:
         TODO: Add documentation
         :return:
         """
-        # TODO: Call AWS to delete all entries
-        return jsonify([])
+        return jsonify(self._interface.delete_all_entries())
