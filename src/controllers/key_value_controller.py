@@ -27,8 +27,7 @@ class KeyValueController:
         :param key:
         :return:
         """
-        # TODO: Implement getting value by Key from AWS
-        return jsonify({})
+        return jsonify(self._interface.get_entry_by_key(key))
 
     def update_entry_by_key(self, key: str, value: any) -> Response:
         """

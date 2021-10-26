@@ -21,3 +21,10 @@ class KeyValuePairAws(KeyValuePairBoundary):
                 'value': entry.value,
             }
         )
+
+    def get_entry_by_key(self, key: str) -> dict:
+        return self._storage.get_item(
+            Key={
+                'ID': key
+            }
+        )['Item']
