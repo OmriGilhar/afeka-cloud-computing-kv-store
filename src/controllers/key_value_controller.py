@@ -2,6 +2,7 @@ from flask import request, jsonify, Response
 
 from src.entities.key_value_pair_boundary import KeyValuePairBoundary
 from src.entities.key_value_pair_aws import KeyValuePairAws
+from src.exceptions.key_value_exceptions import KeyValueException
 
 
 class KeyValueController:
@@ -43,11 +44,15 @@ class KeyValueController:
     def delete_entry_by_key(self, key: str) -> Response:
         """
         TODO: Add documentation
-        :param key:
-        :return:
+        :param key: ID of the item in the storage
+        :return: deleted item if exist and a not found error if not
         """
-        # TODO: Implement deleting an entry by Key from AWS
-        return jsonify({})
+        try:
+            item = self.get_entry_by_key(key)
+        except KeyError:
+            raise KeyValueException(KeyValueException.KEY_NOT_FOUND)
+        self._interface.delete_item(key)
+        return jsonify(item.json)
 
     def get_all_entries(self) -> Response:
         page = request.args.get('page', 1, type=int)
