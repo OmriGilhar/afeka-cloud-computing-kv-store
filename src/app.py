@@ -23,7 +23,7 @@ def keys() -> Response:
     """
     try:
         if request.method == 'POST':
-            return kv_controller.store_entry(str(uuid.uuid4()), request.json)
+            return kv_controller.store_entry(request.json)
         elif request.method == 'GET':
             return kv_controller.get_all_entries()
         elif request.method == 'DELETE':

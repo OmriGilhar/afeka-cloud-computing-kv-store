@@ -9,14 +9,14 @@ class KeyValueController:
     def __init__(self):
         self._interface = KeyValuePairAws()
 
-    def store_entry(self, key: str, value: any) -> Response:
+    def store_entry(self, value: any) -> Response:
         """
         TODO: Add documentation
-
-        :param key:
         :param value:
         :return:
         """
+        key = value['email']
+        del value['email']
         kv_boundary = KeyValuePairBoundary(key, value)
         self._interface.store(kv_boundary)
         return jsonify(self._interface.get_entry_by_key(key))
