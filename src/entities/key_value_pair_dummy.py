@@ -21,4 +21,4 @@ class KeyValuePairDummy(KeyValuePairBoundary):
         return {'You Triggered': 'get_entry_by_key'}
 
     def update_entry_by_key(self, key: str, value: any) -> dict:
-        return {'You Triggered': 'update_entry_by_key'}
+        return {'You Triggered': ['store', 'update_entry_by_key']}
