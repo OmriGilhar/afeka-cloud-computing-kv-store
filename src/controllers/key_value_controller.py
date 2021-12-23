@@ -1,13 +1,14 @@
 from flask import request, jsonify, Response
 
 from src.entities.key_value_pair_boundary import KeyValuePairBoundary
-from src.entities.key_value_pair_aws import KeyValuePairAws
+# from src.entities.key_value_pair_aws import KeyValuePairAws
+from src.entities.key_value_pair_dummy import KeyValuePairDummy
 from src.exceptions.key_value_exceptions import KeyValueException
 
 
 class KeyValueController:
     def __init__(self):
-        self._interface = KeyValuePairAws()
+        self._interface = KeyValuePairDummy()
 
     def store_entry(self, value: any) -> Response:
         """
